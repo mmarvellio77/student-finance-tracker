@@ -1,21 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Student Finance Tracker</title>
-	<link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
-	<a class="skip-link" href="#main">Skip to main content</a>
-	<header>
-		<h1>Student Finance Tracker</h1>
-		<nav aria-label="Main navigation">
-			<a href="#dashboard">Dashboard</a>
-			<a href="#records">Records</a>
-			<a href="#add">Add</a>
-			<a href="#settings">Settings</a>
-			<a href="#about">About</a>
-		</nav>
-	</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Finance Tracker</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <h1>Student Finance Tracker</h1>
+      <nav aria-label="Main navigation">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#records">Records</a>
+        <a href="#add">Add</a>
+        <a href="#settings">Settings</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section id="dashboard">
+        <h2>Dashboard</h2>
+        <p>Total records: <span id="stat-count">0</span></p>
+        <p>Total spent: <span id="stat-sum">0.00</span></p>
+        <p>Top category: <span id="stat-top">None</span></p>
+        <p id="cap-message" aria-live="polite"></p>
+        <div id="trend-chart"></div>
+      </section>
+      <section id="records">
+        <h2>Records</h2>
+        <label for="search">Search (regex):</label>
+        <input type="text" id="search" />
+        <input type="checkbox" id="case-toggle" checked />
+        <label for="case-toggle">Ignore case</label>
 
+        <label for="sort">Sort by:</label>
+        <select id="sort">
+          <option value="date-desc">Date(newest)</option>
+          <option value="date-asc">Date(oldest)</option>
+          <option value="desc-asc">Description A-Z</option>
+          <option value="desc-desc">Description Z-A</option>
+          <option value="amount-asc">Amount(low-high)</option>
+          <option value="amount-desc">Amount(high-low)</option>
+        </select>
+        <p id="search-status" role="status"></p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Category</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="records-body"></tbody>
+        </table>
+      </section>
+      <section id="add">
+        <h2>Add</h2>
+        <form id="record-form" novalidate>
+          <label for="description">Description</label>
+          <input type="text" id="description" />
+          <p class="error" id="description-error"></p>
+          <label for="amount">Amount</label>
+          <input type="text" id="amount" />
+          <p class="error" id="amount-error"></p>
+          <label for="category">Category</label>
+          <input type="text" id="category" />
+          <p class="error" id="category-error"></p>
+          <label for="date">Date(YYYY-MM-DD)</label>
+          <input type="text" id="date" />
+          <p class="error" id="date-error"></p>
+
+          <button type="submit">Save</button>
+          <p id="form-status" role="status"></p>
+        </form>
+      </section>
+
+      <section id="settings">
+        <h2>Settings</h2>
+        <label for="cap">Spending cap</label>
+        <input type="text" id="cap" />
+        <label for="base-currency">Base currency</label>
+        <input type="text" id="base-currency" value="USD" />
+
+        <label for="rate-eur">1 base=EUR</label>
+        <input type="text" id=" rate-eur" value="0.92" />
+        <label for="rate-rwf">1 base=RWF</label>
+        <input type="text" id="rate-rwf" value="1300" />
+
+        <button type="button" id="export-btn">Export JSON</button>
+        <label for="import-file">Import JSON</label>
+        <input type="file" id="import-file" accept=".json" />
+        <p id="settings-status" role="status"></p>
+      </section>
+      <section id="about">
+        <h2>About</h2>
+        <p>An app to track student's spending.</p>
+        <p>
+          <a href="https://github.com//mmarvellio77">Github</a>
+          <a href="mailto:m.munezero@alustudent.com"
+            >m.munezero@alustudent.com</a
+          >
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Student finance tracker</p>
+    </footer>
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
