@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Validator tests</title>
+  </head>
+  <body>
+    <h1>Validator tests</h1>
+    <ul id="results"></ul>
+    <script type="module">
+      import {
+        validateDescription,
+        validateAmount,
+        validateDate,
+        validateCategory,
+        hasDuplicateWord,
+      } from "./scripts/validators.js";
+
+      const results = document.getElementById("results");
+      //Passes when "" (valid) matches what is expected to be valid
+      function check(name, actual, expected) {
+        const li = document.createElement("li");
+        const pass = actual === expected;
+        li.textContent = (pass ? "PASS: " : "FAIL: ") + name;
+        results.appendChild(li);
+      }
+
+      //Description
+      check(
+        "description: normal text is valid",
+        validateDescription("Lunch") === "",
+        true,
+      );
+      check(
+        "description: leading space is invalid",
+        validateDescription(" Lunch ") === "",
+        false,
+      );
+      check(
+        "description: double space is invalid",
+        validateDescription("Lunch  cafe") === "",
+        false,
+      );
+
+      //Amount
+      check("amount: 12.50 is valid", validateAmount("12.50") === "", true);
+      check("amount: 0 is valid", validateAmount("0") === "", true);
+      check("amount: 012 is invalid", validateAmount("012") === "", false);
+      check("amount: 1.234 is invalid", validateAmount("1.234") === "", false);
+
+      //Date
+      check(
+        "date: 2025-09-29 is valid",
+        validateDate("2025-09-29") === "",
+        true,
+      );
+      check(
+        "date: 2025-13-01 is invalid",
+        validateDate("2025-13-01") === "",
+        false,
+      );
+
+      //Category
+      check("category: Food is valid", validateCategory("Food") === "", true);
+      check(
+        "category: Self-care is valid",
+        validateCategory("Self-care") === "",
+        true,
+      );
+      check(
+        "category: Food2 is invalid",
+        validateCategory("Food2") === "",
+        false,
+      );
+
+      //Advanced(back-reference)
+      check(
+        "duplicate: 'coffee' detected",
+        hasDuplicateWord("coffee coffee"),
+        true,
+      );
+      check(
+        "duplicate: 'coffee and tea' not detected",
+        hasDuplicateWord("coffee and tea"),
+        false,
+      );
+    </script>
+  </body>
+</html>
