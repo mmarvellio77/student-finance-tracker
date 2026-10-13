@@ -1,29 +1,21 @@
-export let state = {
-  records: [],
-  search: '',
-  sort: 'date-desc',
-  currency: 'USD',
-  budgetCap: 500,
-  rates: { USD: 1, EUR: 0.92, GBP: 0.79 },
-  categories: ['Food', 'Books', 'Transport', 'Entertainment', 'Fees', 'Other'],
-  caseInsensitive: true
-};
+import { loadRecords, saveRecords } from "./storage.js";
+let records = loadRecords();
 
-export function addRecord(record) {
-  state.records.push(record);
+export function getRecords() {
+  return records;
 }
 
-export function updateRecord(id, updates) {
-  const record = state.records.find(r => r.id === id);
-  if (record) {
-    Object.assign(record, updates, { updatedAt: new Date().toISOString() });
-  }
-}
-
-export function deleteRecord(id) {
-  state.records = state.records.filter(r => r.id !== id);
-}
-
-export function setState(updates) {
-  Object.assign(state, updates);
+export function addRecord(data) {
+  const now = new Date().toISOString();
+  const record = {
+    id: "txn_" + Date.now(),
+    description: data.description,
+    amount: Number(data.amount),
+    category: data.category,
+    date: data.date,
+    createdAt: now,
+    updatedAt: now,
+  };
+  records.push(record);
+  saveRecords(records);
 }
