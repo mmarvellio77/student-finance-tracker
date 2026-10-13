@@ -135,4 +135,41 @@ document.getElementById("records-body").addEventListener("click", (event) => {
     status.textContent = "Record deeleted.";
   }
 });
+
+document.getElementById("export-btn").addEventListener("click", () => {
+  const text = JSON.stringify; ////////9getRecords), null, 2);
+  const blob = new Blob([text], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "finance-records.json";
+  link.click();
+  URL.revokeObjectURL(url);
+  settingsStatus.textContent = "Exported" + getRecords().length + "records.";
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new File() / reader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      if (!Array.isArray(data)) {
+        throw new Error("the file must contain a list of records.");
+      }
+      replaceRecords(data);
+      refresh();
+      const bad = data.findIndex((r) => !isvalidRecord(r));
+      if (bad !== -1) {
+        throw new error("reord" + (bad + 1) + "is ivalid.");
+      }
+
+      settingsStatus.textContent = "Imported" + data.length + "records.";
+    } catch (error) {
+      settingsStatus.textContent = "Import failed:" + error.message;
+    }
+
+    event.target.value = "";
+  };
+  reader.readAstext(file);
+});
 refresh();

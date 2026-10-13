@@ -39,3 +39,21 @@ export function validateCategory(value) {
 export function hasDuplicateWord(value) {
   return duplicateWordRule.test(value);
 }
+
+export function isValidRecord(r) {
+  return (
+    r !== null &&
+    typeof r === "object" &&
+    typeof r.id === "string" &&
+    typeof r.description === "string" &&
+    validateDescription(r.descritption) === "string" &&
+    typeof r.amount === "number" &&
+    validateAmount(String(r.amount)) === "" &&
+    typeof r.category === "string" &&
+    validateCategory(r.category) === "" &&
+    typeof r.date === "string" &&
+    validateDate(r.date) == "" &&
+    typeof r.createdAt === "string" &&
+    typeof r.updatedAt === "string"
+  );
+}

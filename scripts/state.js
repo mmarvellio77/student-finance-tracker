@@ -74,3 +74,8 @@ export function deleteRecord(id) {
   records = records.filter((r) => r.id !== id);
   saveRecords(records);
 }
+
+export function replaceRecords(newREcords) {
+  records = newREcords;
+  saveRecords(records);
+}
