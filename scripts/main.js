@@ -3,7 +3,7 @@ import {
   validateAmount,
   validateDate,
   validateCategory,
-  validateDuplicateWord,
+  hasDuplicateWord,
 } from "./validators.js";
 import { getRecords, addRecord } from "./state.js";
 import { renderRecords } from "./ui.js";
@@ -17,7 +17,7 @@ const fields = [
   { id: "category", check: validateCategory },
   { id: "date", check: validateDate },
 ];
-function showEroor(field) {
+function showError(field) {
   const input = document.getElementById(field.id);
   const error = document.getElementById(field.id + "-error");
   const message = field.check(input.value);
@@ -45,12 +45,12 @@ form.addEventListener("submit", (event) => {
   }
   const data = {
     description: document.getElementById("description").value,
-    amount: document.getElemenyById("amount").value,
+    amount: document.getElementById("amount").value,
     category: document.getElementById("category").value,
     date: document.getElementById("date").value,
   };
   addRecord(data);
-  renderRrecords(getRecords());
+  renderRecords(getRecords());
   form.reset();
   if (hasDuplicateWord(data.description)) {
     status.textContent = "Record saved,but the description repeats a word.";
