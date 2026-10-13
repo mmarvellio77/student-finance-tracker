@@ -5,9 +5,10 @@ import {
   validateCategory,
   hasDuplicateWord,
 } from "./validators.js";
-import { getRecords, addRecord, sortRecords } from "./state.js";
-import { renderRecords } from "./ui.js";
+import { getRecords, addRecord, sortRecords, getStats } from "./state.js";
+import { renderRecords, renderStats, renderTrend, renderCap } from "./ui.js";
 import { compileRegex, matchesRecord } from "./search.js";
+import { loadCap, saveCap } from "./storage.js";
 
 const form = document.getElementById("record-form");
 const status = document.getElementById("form-status");
@@ -16,6 +17,15 @@ const sortSelect = document.getElementById("sort");
 const searchInput = document.getElementById("search");
 const caseToggle = document.getElementById("case-toggle");
 const searchStatus = document.getElementById("search-status");
+
+function updateDashboard() {
+  const records = getRecords();
+  const stats = getStats(records);
+  renderStats(stats);
+  renderTrend(getLast7Days(records));
+  renderCap(stats.sum, loadCap());
+}
+
 function refresh() {
   const pattern = searchInput.value;
   const re = compileRegex(pattern, caseToggle.checked ? "gi" : "g");
@@ -33,6 +43,7 @@ function refresh() {
   } else {
     searchStatus.textContent = "";
   }
+  updateDashboard();
 }
 
 sortSelect.addEventListener("change", refresh);
@@ -88,4 +99,22 @@ form.addEventListener("submit", (event) => {
 });
 
 //Show saved records when the page loads
+const capInput = document.getElementById("cap");
+const settingStatus = document.getElementById("settings-status");
+capInput.value = loadCap() || "";
+
+capInput.addEventListener("INput", () => {
+  const value = capInput.value;
+  if (value === "") {
+    saveCap(0);
+    settingsStatus.textContent = "";
+  } else if (validateAmount(value) === "") {
+    saveCap(Number(value));
+    settingsStatus.textContent = "Cap saved.";
+  } else {
+    settingsStatus.textContent = validateAmount(value);
+    return;
+  }
+  updateDashboard();
+});
 refresh();
