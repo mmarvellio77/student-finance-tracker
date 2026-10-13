@@ -1,0 +1,110 @@
+[
+  {
+    "id": "txn_1",
+    "description": "Lunch at cafeteria",
+    "amount": 12.5,
+    "category": "Food",
+    "date": "2026-10-13",
+    "createdAt": "2026-10-13T09:00:00.000Z",
+    "updatedAt": "2026-10-13T08:00:00.000Z"
+  },
+  {
+    "id": "txn_2",
+    "description": "Chemistry textbook",
+    "amount": 89.99,
+    "category": "Books",
+    "date": "2026-10-12",
+    "createdAt": "2026-10-12T09:00:00.000Z",
+    "updatedAt": "2026-10-12T09:00:00.000Z"
+  },
+  {
+    "id": "txn_3",
+    "description": "Bus pass",
+    "amount": 45,
+    "category": "Transport",
+    "date": "2026-10-10",
+    "createdAt": "2026-10-10T07:30:00.000Z",
+    "updatedAt": "2026-10-10T07:30:00.000Z"
+  },
+  {
+    "id": "txn_4",
+    "description": "Coffee with friends",
+    "amount": 8.75,
+    "category": "Entertainent",
+    "date": "2026-10-08",
+    "createdAt": "2026-10-08T15:00:00.000Z",
+    "updatedAt": "2026-10-08T15:00:00.000Z"
+  },
+  {
+    "id": "txn_5",
+    "description": "Coffee coffee run",
+    "amount": 3.2,
+    "category": "Food",
+    "date": "2026-10-13",
+    "createdAt": "2026-10-13T10:00:00.000Z",
+    "updatedAt": "2026-10-13T10:00:00.000Z"
+  },
+  {
+    "id": "txn_6",
+    "description": "Tuition fee(term 1)",
+    "amount": 1250000,
+    "category": "Fees",
+    "date": "2025-12-31",
+    "createdAt": "2025-12-31T12:00:00.000Z",
+    "updatedAt": "2025-12-31:00:00.000Z"
+  },
+  {
+    "id": "txn_7",
+    "description": "Free sample pen",
+    "amount": 0,
+    "category": "Other",
+    "date": "2024-02-29",
+    "createdAt": "2024-02-29T12:00:00.000Z",
+    "updatedAt": "2024-02-29T12:00:00.000Z"
+  },
+  {
+    "id": "txn_8",
+    "description": "Sticker",
+    "amount": 0.01,
+    "category": "Other",
+    "date": "2026-01-01",
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "txn_9",
+    "description": "Tea & snacks(green tea)",
+    "amount": 6.5,
+    "category": "Food",
+    "date": "2026-10-11",
+    "createdAt": "2026-10-11T16:00:00.000Z",
+    "updatedAt": "2026-10-11T16:00:00.000Z"
+  },
+  {
+    "id": "txn_10",
+    "description": "Haircut and self care",
+    "amount": 15.4,
+    "category": "Self-care",
+    "date": "2026-09-30",
+    "createdAt": "2026-09-30T11:00:00.000Z",
+    "updatedAt": "2026-09-30T11:00:00.000Z"
+  },
+  {
+    "id": "txn_11",
+    "description": "the the exam fee",
+    "amount": 99999.99,
+    "category": "Fees",
+    "date": "2026-06-15",
+    "createdAt": "2026-06-15T09:00:00.000Z",
+    "updatedAt": "2026-06-15T09:00:00.000Z"
+  },
+  {
+    "id": "txn_12",
+    "description": "Moto ride home",
+    "amount": 2.5,
+    "category": "Transport",
+    "date": "2026-10-09",
+    "createdAt": "2026-10-09T18:00:00.000Z",
+    "updatedAt": "2026-10-09T18:00:00.000Z"
+  }
+]
