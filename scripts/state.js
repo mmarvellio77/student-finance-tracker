@@ -19,3 +19,15 @@ export function addRecord(data) {
   records.push(record);
   saveRecords(records);
 }
+export function sortRecords(records, mode) {
+  const sorted = [...records];
+  if (mode === "date-desc") sorted.sort((a, b) => b.date.localeCompare(a.date));
+  if (mode === "date-asc") sorted.sort((a, b) => a.date.localeCompare(b.date));
+  if (mode === "desc-asc")
+    sorted.sort((a, b) => a.description.localeCompare(b.description));
+  if (mode === "desc-desc")
+    sorted.sort((a, b) => b.description.localeCompare(a.description));
+  if (mode === "amount-asc") sorted.sort((a, b) => a.amount - b.amount);
+  if (mode === "amount-desc") sorted.sort((a, b) => b.amount - a.amount);
+  return sorted;
+}

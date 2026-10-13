@@ -5,11 +5,16 @@ import {
   validateCategory,
   hasDuplicateWord,
 } from "./validators.js";
-import { getRecords, addRecord } from "./state.js";
+import { getRecords, addRecord, sortRecords } from "./state.js";
 import { renderRecords } from "./ui.js";
 
 const form = document.getElementById("record-form");
 const status = document.getElementById("form-status");
+const sortSelect = document.getElementById("sort");
+function refresh() {
+  renderRecords(sortRecords(getRecords(), sortSelect.value));
+}
+sortSelect.addEventListener("change", refresh);
 
 const fields = [
   { id: "description", check: validateDescription },
@@ -50,7 +55,7 @@ form.addEventListener("submit", (event) => {
     date: document.getElementById("date").value,
   };
   addRecord(data);
-  renderRecords(getRecords());
+  refresh();
   form.reset();
   if (hasDuplicateWord(data.description)) {
     status.textContent = "Record saved,but the description repeats a word.";
@@ -60,4 +65,4 @@ form.addEventListener("submit", (event) => {
 });
 
 //Show saved records when the page loads
-renderRecords(getRecords());
+refresh();
