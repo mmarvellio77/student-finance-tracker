@@ -7,14 +7,37 @@ import {
 } from "./validators.js";
 import { getRecords, addRecord, sortRecords } from "./state.js";
 import { renderRecords } from "./ui.js";
+import { compileRegex, matchesRecord } from "./search.js";
 
 const form = document.getElementById("record-form");
 const status = document.getElementById("form-status");
+
 const sortSelect = document.getElementById("sort");
+const searchInput = document.getElementById("search");
+const caseToggle = document.getElementById("case-toggle");
+const searchStatus = document.getElementById("search-status");
 function refresh() {
-  renderRecords(sortRecords(getRecords(), sortSelect.value));
+  const pattern = searchInput.value;
+  const re = compileRegex(pattern, caseToggle.checked ? "gi" : "g");
+
+  const all = sortRecords(getRecords(), sortSelect.value);
+  const shown = re ? all.filter((record) => matchesRecord(record, re)) : all;
+
+  renderRecords(shown, re);
+
+  if (pattern && !re) {
+    searchStatus.textContent = "invalid pattern. Showing all records.";
+  } else if (re) {
+    searchStatus.textContent =
+      shown.length + "of" + all.length + "records match.";
+  } else {
+    searchStatus.textContent = "";
+  }
 }
+
 sortSelect.addEventListener("change", refresh);
+searchInput.addEventListener("input", refresh);
+caseToggle.addEventListener("change", refresh);
 
 const fields = [
   { id: "description", check: validateDescription },
