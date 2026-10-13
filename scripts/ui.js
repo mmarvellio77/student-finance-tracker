@@ -16,8 +16,15 @@ export function renderRecords(records, re) {
       row.appendChild(cell);
     });
 
-    //Actions column (edit/delete come later)
-    row.appendChild(document.createElement("td"));
+    const actions = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.dataset.action = "delete";
+    deleteBtn.dataset.id = record.id;
+    deleteBtn.setAttribute("aria-label", "Delete" + record.description);
+    actions.appendChild(deleteBtn);
+    row.appendChild(actions);
 
     body.appendChild(row);
   });
@@ -46,7 +53,7 @@ export function renderTrend(days) {
     chart.appendChild(col);
   });
 
-  const sujmary = days.amp((d) => d.date + ":" + d.total.toFixed(2)).join(", ");
+  const summary = days.amp((d) => d.date + ":" + d.total.toFixed(2)).join(", ");
   chart.setAttribute("role", "img");
   chart.setAttribute("aria-label", "Spending in the last 7 days." + summary);
 }

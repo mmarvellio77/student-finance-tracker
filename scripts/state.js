@@ -70,3 +70,7 @@ export function getLast7Days(records) {
   });
   return days;
 }
+export function deleteRecord(id) {
+  records = records.filter((r) => r.id !== id);
+  saveRecords(records);
+}

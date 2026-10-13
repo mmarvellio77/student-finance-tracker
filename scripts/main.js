@@ -5,7 +5,14 @@ import {
   validateCategory,
   hasDuplicateWord,
 } from "./validators.js";
-import { getRecords, addRecord, sortRecords, getStats } from "./state.js";
+import {
+  getRecords,
+  addRecord,
+  sortRecords,
+  getStats,
+  getLast7Days,
+  deleteRecord,
+} from "./state.js";
 import { renderRecords, renderStats, renderTrend, renderCap } from "./ui.js";
 import { compileRegex, matchesRecord } from "./search.js";
 import { loadCap, saveCap } from "./storage.js";
@@ -116,5 +123,16 @@ capInput.addEventListener("INput", () => {
     return;
   }
   updateDashboard();
+});
+
+document.getElementById("records-body").addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-action='delete']");
+  if (!button) return;
+
+  if (confirm("Delete this record?")) {
+    deleteRecord(button.dataset.id);
+    refresh();
+    status.textContent = "Record deeleted.";
+  }
 });
 refresh();
