@@ -35,7 +35,7 @@ export function sortRecords(records, mode) {
 export function getStats(records) {
   const count = records.length;
   const sum = records.reduce((total, r) => total + r.amount, 0);
-  //Total spent per category, then pick the biggest
+
   const totals = {};
   records.forEach((r) => {
     totals[r.category] = (totals[r.category] || 0) + r.amount;
@@ -53,7 +53,7 @@ export function getStats(records) {
 
 export function getLast7Days(records) {
   const days = [];
-  for (let i = 6; i > 0; i--) {
+  for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     const key =
@@ -62,7 +62,7 @@ export function getLast7Days(records) {
       String(d.getMonth() + 1).padStart(2, "0") +
       "-" +
       String(d.getDate()).padStart(2, "0");
-    days.push({ date: key, totsl: 0 });
+    days.push({ date: key, total: 0 });
   }
   records.forEach((r) => {
     const day = days.find((d) => d.date === r.date);
@@ -75,7 +75,20 @@ export function deleteRecord(id) {
   saveRecords(records);
 }
 
-export function replaceRecords(newREcords) {
-  records = newREcords;
+export function replaceRecords(newRecords) {
+  records = newRecords;
+  saveRecords(records);
+}
+
+export function updateRecord(id, data) {
+  const record = records.find((r) => r.id === id);
+  if (!record) return;
+
+  record.description = data.description;
+  record.amount = Number(data.amount);
+
+  record.category = data.category;
+  record.date = data.date;
+  record.updatedAt = new Date().toISOString();
   saveRecords(records);
 }

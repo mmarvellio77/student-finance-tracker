@@ -4,6 +4,9 @@ import {
   validateDate,
   validateCategory,
   hasDuplicateWord,
+  isValidRecord,
+  validateCurrency,
+  validateRate,
 } from "./validators.js";
 import {
   getRecords,
@@ -12,13 +15,22 @@ import {
   getStats,
   getLast7Days,
   deleteRecord,
+  updateRecord,
+  replaceRecords,
 } from "./state.js";
-import { renderRecords, renderStats, renderTrend, renderCap } from "./ui.js";
+import {
+  renderRecords,
+  renderStats,
+  renderTrend,
+  renderCap,
+  renderConverted,
+} from "./ui.js";
 import { compileRegex, matchesRecord } from "./search.js";
-import { loadCap, saveCap } from "./storage.js";
+import { loadCap, saveCap, loadSettings, saveSettings } from "./storage.js";
 
 const form = document.getElementById("record-form");
 const status = document.getElementById("form-status");
+let editingId = null;
 
 const sortSelect = document.getElementById("sort");
 const searchInput = document.getElementById("search");
@@ -31,6 +43,7 @@ function updateDashboard() {
   renderStats(stats);
   renderTrend(getLast7Days(records));
   renderCap(stats.sum, loadCap());
+  renderConverted(stats.sum, loadSettings());
 }
 
 function refresh() {
@@ -95,7 +108,12 @@ form.addEventListener("submit", (event) => {
     category: document.getElementById("category").value,
     date: document.getElementById("date").value,
   };
-  addRecord(data);
+  if (editingId) {
+    updateRecord(editingId, data);
+    editingId = null;
+  } else {
+    addRecord(data);
+  }
   refresh();
   form.reset();
   if (hasDuplicateWord(data.description)) {
@@ -107,10 +125,10 @@ form.addEventListener("submit", (event) => {
 
 //Show saved records when the page loads
 const capInput = document.getElementById("cap");
-const settingStatus = document.getElementById("settings-status");
+const settingsStatus = document.getElementById("settings-status");
 capInput.value = loadCap() || "";
 
-capInput.addEventListener("INput", () => {
+capInput.addEventListener("input", () => {
   const value = capInput.value;
   if (value === "") {
     saveCap(0);
@@ -126,18 +144,32 @@ capInput.addEventListener("INput", () => {
 });
 
 document.getElementById("records-body").addEventListener("click", (event) => {
-  const button = event.target.closest("button[data-action='delete']");
+  const button = event.target.closest("button[data-action]");
   if (!button) return;
 
-  if (confirm("Delete this record?")) {
-    deleteRecord(button.dataset.id);
-    refresh();
-    status.textContent = "Record deeleted.";
+  const id = button.dataset.id;
+
+  if (button.dataset.action === "delete") {
+    if (confirm("Delete this record")) {
+      deleteRecord(id);
+      refresh();
+      status.textContent = "Record deleted.";
+    }
+  }
+  if (button.dataset.action === "edit") {
+    const record = getRecords().find((r) => r.id === id);
+    document.getElementById("description").value = record.description;
+    document.getElementById("amount").value = record.amount;
+    document.getElementById("category").value = record.category;
+    document.getElementById("date").value = record.date;
+    editingId = id;
+    status.textContent = "Editing a record. Change the fields and click Save.";
+    document.getElementById("description").focus();
   }
 });
 
 document.getElementById("export-btn").addEventListener("click", () => {
-  const text = JSON.stringify; ////////9getRecords), null, 2);
+  const text = JSON.stringify(getRecords(), null, 2);
   const blob = new Blob([text], { type: "application/json" });
   const url = URL.createObjectURL(blob);
 
@@ -147,29 +179,59 @@ document.getElementById("export-btn").addEventListener("click", () => {
   link.click();
   URL.revokeObjectURL(url);
   settingsStatus.textContent = "Exported" + getRecords().length + "records.";
+});
+
+document.getElementById("import-file").addEventListener("change", (event) => {
   const file = event.target.files[0];
   if (!file) return;
-  const reader = new File() / reader();
+  const reader = new FileReader();
   reader.onload = () => {
     try {
       const data = JSON.parse(reader.result);
       if (!Array.isArray(data)) {
         throw new Error("the file must contain a list of records.");
       }
+      const bad = data.findIndex((r) => !isValidRecord(r));
+      if (bad !== -1) {
+        throw new Error("record" + (bad + 1) + "is ivalid.");
+      }
       replaceRecords(data);
       refresh();
-      const bad = data.findIndex((r) => !isvalidRecord(r));
-      if (bad !== -1) {
-        throw new error("reord" + (bad + 1) + "is ivalid.");
-      }
 
-      settingsStatus.textContent = "Imported" + data.length + "records.";
+      settingsStatus.textContent = "Imported" + data.length + " records.";
     } catch (error) {
       settingsStatus.textContent = "Import failed:" + error.message;
     }
 
     event.target.value = "";
   };
-  reader.readAstext(file);
+  reader.readAsText(file);
 });
+const baseInput = document.getElementById("base-currency");
+const eurInput = document.getElementById("rate-eur");
+const rwfInput = document.getElementById("rate-rwf");
+
+const saved = loadSettings();
+baseInput.value = saved.base;
+eurInput.value = saved.eur;
+rwfInput.value = saved.rwf;
+function onSettingsChange() {
+  const base = baseInput.value.toUpperCase();
+  const problem =
+    validateCurrency(base) ||
+    validateRate(eurInput.value) ||
+    validateRate(rwfInput.value);
+
+  if (problem) {
+    settingsStatus.textContent = problem;
+    return;
+  }
+  saveSettings({ base, eur: eurInput.value, rwf: rwfInput.value });
+  settingsStatus.textContent = "Settings saved.";
+  updateDashboard();
+}
+[baseInput, eurInput, rwfInput].forEach((input) => {
+  input.addEventListener("input", onSettingsChange);
+});
+
 refresh();

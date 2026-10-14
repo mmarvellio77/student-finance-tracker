@@ -57,3 +57,16 @@ export function isValidRecord(r) {
     typeof r.updatedAt === "string"
   );
 }
+
+export function validateCurrency(value) {
+  if (!/^[A-Z]{3}$/.test(value)) {
+    return "The currency code must be 3 capital letters, like USD.";
+  }
+  return "";
+}
+export function validateRate(value) {
+  if (!/^\d+(\.\d{1,6})?$/.test(value) || Number(value) === 0) {
+    return "The rate must be a number above 0, like 0.92.";
+  }
+  return "";
+}

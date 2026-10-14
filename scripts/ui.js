@@ -23,7 +23,13 @@ export function renderRecords(records, re) {
     deleteBtn.dataset.action = "delete";
     deleteBtn.dataset.id = record.id;
     deleteBtn.setAttribute("aria-label", "Delete" + record.description);
-    actions.appendChild(deleteBtn);
+    const editBtn = document.createElement("button");
+    editBtn.type = "button";
+    editBtn.textContent = "Edit";
+    editBtn.dataset.action = "edit";
+    editBtn.dataset.id = record.id;
+    editBtn.setAttribute("aria-label", "Edit" + record.description);
+    actions.append(editBtn, deleteBtn);
     row.appendChild(actions);
 
     body.appendChild(row);
@@ -32,8 +38,8 @@ export function renderRecords(records, re) {
 
 export function renderStats(stats) {
   document.getElementById("stat-count").textContent = stats.count;
-  document.getElementById("stats-sum").textContent = stats.sum.toFixed(2);
-  document.getElemntById("stat-top").textContent = stats.top;
+  document.getElementById("stat-sum").textContent = stats.sum.toFixed(2);
+  document.getElementById("stat-top").textContent = stats.top;
 }
 
 export function renderTrend(days) {
@@ -53,7 +59,7 @@ export function renderTrend(days) {
     chart.appendChild(col);
   });
 
-  const summary = days.amp((d) => d.date + ":" + d.total.toFixed(2)).join(", ");
+  const summary = days.map((d) => d.date + ":" + d.total.toFixed(2)).join(", ");
   chart.setAttribute("role", "img");
   chart.setAttribute("aria-label", "Spending in the last 7 days." + summary);
 }
@@ -68,5 +74,15 @@ export function renderCap(sum, cap) {
   if (sum > cap) {
     message.setAttribute("aria.live", "assertive");
     message.textContent = "Over your cap by" + diff + ".";
+  } else {
+    message.setAttribute("aria-live", "polite");
+    message.textContent = diff + "remaining under your cap.";
   }
+}
+
+export function renderConverted(sum, settings) {
+  const eur = (sum * Number(settings.eur)).toFixed(2);
+  const rwf = (sum * Number(settings.rwf)).toFixed(2);
+  document.getElementById("converted").textContent =
+    settings.base + ": " + sum.toFixed(2) + " | EUR: " + eur + " | RWF:" + rwf;
 }
