@@ -59,7 +59,7 @@ function refresh() {
     searchStatus.textContent = "invalid pattern. Showing all records.";
   } else if (re) {
     searchStatus.textContent =
-      shown.length + "of" + all.length + "records match.";
+      shown.length + " of " + all.length + " records match.";
   } else {
     searchStatus.textContent = "";
   }
@@ -117,7 +117,7 @@ form.addEventListener("submit", (event) => {
   refresh();
   form.reset();
   if (hasDuplicateWord(data.description)) {
-    status.textContent = "Record saved,but the description repeats a word.";
+    status.textContent = "Record saved, but the description repeats a word.";
   } else {
     status.textContent = "Record saved.";
   }
@@ -178,7 +178,7 @@ document.getElementById("export-btn").addEventListener("click", () => {
   link.download = "finance-records.json";
   link.click();
   URL.revokeObjectURL(url);
-  settingsStatus.textContent = "Exported" + getRecords().length + "records.";
+  settingsStatus.textContent = "Exported " + getRecords().length + " records.";
 });
 
 document.getElementById("import-file").addEventListener("change", (event) => {
@@ -193,14 +193,14 @@ document.getElementById("import-file").addEventListener("change", (event) => {
       }
       const bad = data.findIndex((r) => !isValidRecord(r));
       if (bad !== -1) {
-        throw new Error("record" + (bad + 1) + "is ivalid.");
+        throw new Error("record " + (bad + 1) + " is invalid.");
       }
       replaceRecords(data);
       refresh();
 
-      settingsStatus.textContent = "Imported" + data.length + " records.";
+      settingsStatus.textContent = "Imported " + data.length + " records.";
     } catch (error) {
-      settingsStatus.textContent = "Import failed:" + error.message;
+      settingsStatus.textContent = "Import failed: " + error.message;
     }
 
     event.target.value = "";
