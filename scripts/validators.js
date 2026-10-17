@@ -46,13 +46,13 @@ export function isValidRecord(r) {
     typeof r === "object" &&
     typeof r.id === "string" &&
     typeof r.description === "string" &&
-    validateDescription(r.descritption) === "string" &&
+    validateDescription(r.description) === "" &&
     typeof r.amount === "number" &&
     validateAmount(String(r.amount)) === "" &&
     typeof r.category === "string" &&
     validateCategory(r.category) === "" &&
-    typeof r.date === "string" &&
-    validateDate(r.date) == "" &&
+    typeof r.date == "string" &&
+    validateDate(r.date) === "" &&
     typeof r.createdAt === "string" &&
     typeof r.updatedAt === "string"
   );
