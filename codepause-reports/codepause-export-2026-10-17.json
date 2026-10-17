@@ -1,0 +1,201 @@
+{
+  "exportDate": "2026-10-17T19:35:11.373Z",
+  "dateRange": {
+    "start": "2026-04-17",
+    "end": "2026-10-17"
+  },
+  "metrics": [
+    {
+      "date": "2026-10-12",
+      "totalEvents": 566,
+      "totalAISuggestions": 15,
+      "totalAILines": 134,
+      "totalManualLines": 543,
+      "aiPercentage": 19.79320531757755,
+      "averageReviewTime": 0,
+      "sessionCount": 0,
+      "toolBreakdown": {
+        "copilot": {
+          "tool": "copilot",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "cursor": {
+          "tool": "cursor",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "claude-code": {
+          "tool": "claude-code",
+          "suggestionCount": 15,
+          "acceptedCount": 2,
+          "rejectedCount": 0,
+          "linesGenerated": 1113,
+          "averageReviewTime": 0
+        }
+      },
+      "reviewQualityScore": 89,
+      "unreviewedLines": 89,
+      "unreviewedPercentage": 17,
+      "agentSessionCount": 0,
+      "averageFileReviewTime": 2406982.6666666665,
+      "reviewedFilesCount": 3
+    },
+    {
+      "date": "2026-10-13",
+      "totalEvents": 1197,
+      "totalAISuggestions": 36,
+      "totalAILines": 181,
+      "totalManualLines": 1144,
+      "aiPercentage": 13.660377358490566,
+      "averageReviewTime": 0,
+      "sessionCount": 0,
+      "toolBreakdown": {
+        "copilot": {
+          "tool": "copilot",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "cursor": {
+          "tool": "cursor",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "claude-code": {
+          "tool": "claude-code",
+          "suggestionCount": 36,
+          "acceptedCount": 3,
+          "rejectedCount": 0,
+          "linesGenerated": 807,
+          "averageReviewTime": 0
+        }
+      },
+      "reviewQualityScore": 83,
+      "unreviewedLines": 0,
+      "unreviewedPercentage": 0,
+      "agentSessionCount": 0,
+      "averageFileReviewTime": 0,
+      "reviewedFilesCount": 8
+    },
+    {
+      "date": "2026-10-14",
+      "totalEvents": 216,
+      "totalAISuggestions": 7,
+      "totalAILines": 131,
+      "totalManualLines": 210,
+      "aiPercentage": 38.41642228739003,
+      "averageReviewTime": 0,
+      "sessionCount": 0,
+      "toolBreakdown": {
+        "copilot": {
+          "tool": "copilot",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "cursor": {
+          "tool": "cursor",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "claude-code": {
+          "tool": "claude-code",
+          "suggestionCount": 7,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 255,
+          "averageReviewTime": 0
+        }
+      },
+      "reviewQualityScore": 62,
+      "unreviewedLines": 0,
+      "unreviewedPercentage": 0,
+      "agentSessionCount": 0,
+      "averageFileReviewTime": 0,
+      "reviewedFilesCount": 9
+    },
+    {
+      "date": "2026-10-17",
+      "totalEvents": 29,
+      "totalAISuggestions": 7,
+      "totalAILines": 6,
+      "totalManualLines": 33,
+      "aiPercentage": 15.384615384615385,
+      "averageReviewTime": 0,
+      "sessionCount": 0,
+      "toolBreakdown": {
+        "copilot": {
+          "tool": "copilot",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "cursor": {
+          "tool": "cursor",
+          "suggestionCount": 0,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 0,
+          "averageReviewTime": 0
+        },
+        "claude-code": {
+          "tool": "claude-code",
+          "suggestionCount": 7,
+          "acceptedCount": 0,
+          "rejectedCount": 0,
+          "linesGenerated": 32,
+          "averageReviewTime": 0
+        }
+      },
+      "reviewQualityScore": 100,
+      "unreviewedLines": 0,
+      "unreviewedPercentage": 0,
+      "agentSessionCount": 0,
+      "averageFileReviewTime": 462501.5,
+      "reviewedFilesCount": 2
+    }
+  ],
+  "summary": {
+    "totalEvents": 2008,
+    "averageAIPercentage": 21.81,
+    "averageReviewTime": 0,
+    "totalBlindApprovals": null
+  },
+  "config": {
+    "experienceLevel": "mid",
+    "blindApprovalThreshold": 2000,
+    "alertFrequency": "medium",
+    "enableGamification": false,
+    "anonymizePaths": true,
+    "trackedTools": {
+      "copilot": true,
+      "cursor": true,
+      "claudeCode": true
+    },
+    "onboardingCompleted": false,
+    "customThresholds": {
+      "aiPercentageMax": 60,
+      "reviewTimeMin": 3000
+    }
+  },
+  "achievements": []
+}
