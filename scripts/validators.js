@@ -51,7 +51,7 @@ export function isValidRecord(r) {
     validateAmount(String(r.amount)) === "" &&
     typeof r.category === "string" &&
     validateCategory(r.category) === "" &&
-    typeof r.date == "string" &&
+    typeof r.date === "string" &&
     validateDate(r.date) === "" &&
     typeof r.createdAt === "string" &&
     typeof r.updatedAt === "string"
