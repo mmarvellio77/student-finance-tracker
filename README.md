@@ -115,3 +115,18 @@ scripts/ main.js state.js storage.js ui.js validators.js search.js
 ## Credits
 
 The starter snippets for the safe regex compiler, highlighter and localStorage helpers come from the course brief and were adapted.
+
+## AI Usage
+
+I tracked my work with CodePause while building this project. The exported report and a dashboard screenshot are in [`codepause-reports/`](codepause-reports/):
+
+- `codepause-export-2026-10-17.json` (full export)
+- `codepause-dashboard.png` (dashboard screenshot)
+
+**Summary:**
+
+AI-generated: 20% / Manual: 80%
+
+**Where I used AI:**
+
+Only to help write part of this README . All code, logic, and design decisions are my own.
