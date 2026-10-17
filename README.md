@@ -5,7 +5,7 @@ No frameworks. Data is stored in localStorage.
 
 - **Theme:** Student Finance Tracker
 - **Live site:** https://mmarvellio77.github.io/student-finance-tracker/
-- **Demo video:** add link here!
+- **Demo video:** https://www.loom.com/share/281491a831ec4707be086766e9598158
 - **Author:** Munezero Marvella: [Github](https://github.com/mmarvellio77) | m.munezero@alustudent.com
 
 ## Features
